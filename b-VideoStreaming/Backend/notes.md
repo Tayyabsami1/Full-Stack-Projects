@@ -13,3 +13,11 @@
 - In the IndexJs import DB connection and Express App and connect the DB and start the server.
 - Use Nodemon to automatically restart the server make sure you edit the start script in the package.json.
 - Use dotenv package for the environment variables.
+
+## Password Hashing 
+- So it is bad practice to save simple passwords as text in the backend you need to hash them , so for hasing we use bcrypt and to make our hash unique we use the jsonwebtoken
+
+## Customer API Responses
+- We can make customer error classes and customer Api response classes to standardize it. In the utils folder so that it can be used anywhere.
+
+
