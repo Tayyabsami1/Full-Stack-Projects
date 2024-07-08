@@ -20,4 +20,10 @@
 ## Customer API Responses
 - We can make customer error classes and customer Api response classes to standardize it. In the utils folder so that it can be used anywhere.
 
+## Security
+- We can use both sessions and cookies for enhanced security. We can save the Refresh Token in the DB and Access Token will be in the cookies.
+
+## Database Important points
+- We can make a perfect Schema using Mongoose. We can add plugins , pre , post and can add as many methods as we want.
+
 
