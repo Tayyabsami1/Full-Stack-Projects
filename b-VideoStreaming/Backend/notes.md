@@ -26,4 +26,9 @@
 ## Database Important points
 - We can make a perfect Schema using Mongoose. We can add plugins , pre , post and can add as many methods as we want.
 
+## File Uploading 
+- We can easily upload Pictures , videos and pdfs using some services and packages like Cloudinary to save our data and multer to upload files.
+- We can save the upload file in our temp from the user and then we can upload it to our SDK eg CLoudinary
+-
+
 
