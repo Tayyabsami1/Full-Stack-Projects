@@ -26,4 +26,13 @@ app.use(express.static("public"));
 // We can use some methods to set secure  cookies which can only be read/remove  by the server
 app.use(cookieparser())
 
+// Routes Import 
+import userRoute from "./Routes/user.routes.js"
+
+// Routes Declearation 
+//? It is basically industry practice to write API and the version of the API in our case it is the 1st version so no issue 
+app.use("/api/v1/users",userRoute);
+
+
+
 export { app };
