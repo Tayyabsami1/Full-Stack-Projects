@@ -29,6 +29,6 @@
 ## File Uploading 
 - We can easily upload Pictures , videos and pdfs using some services and packages like Cloudinary to save our data and multer to upload files.
 - We can save the upload file in our temp from the user and then we can upload it to our SDK eg CLoudinary
--
+- The files like Images , pdf ect are contained in the req.files. (You get the other data in req.body)
 
 
