@@ -4,7 +4,7 @@
 // We can also inject a middleware in the Route to upload pic or send files ect
 
 import { Router } from "express";
-import { LoginUser, LogoutUser, refreshAccessToken, RegisterUser } from "../Controllers/user.controller.js";
+import { getCurrentUser, LoginUser, LogoutUser, refreshAccessToken, RegisterUser } from "../Controllers/user.controller.js";
 import { upload } from "../Middlewares/multer.middleware.js";
 import { verifyJWT } from "../Middlewares/auth.middleware.js";
 
@@ -30,5 +30,7 @@ router.route("/login").post(LoginUser);
 
 router.route("/logout").post(verifyJWT, LogoutUser);
 router.route("/refreshToken").post(refreshAccessToken);
+
+router.route("/user").get(verifyJWT,getCurrentUser);
 
 export default router;
