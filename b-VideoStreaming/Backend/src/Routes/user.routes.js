@@ -4,10 +4,11 @@
 // We can also inject a middleware in the Route to upload pic or send files ect
 
 import { Router } from "express";
-import { RegisterUser } from "../Controllers/user.controller.js";
+import { LoginUser, LogoutUser, refreshAccessToken, RegisterUser } from "../Controllers/user.controller.js";
 import { upload } from "../Middlewares/multer.middleware.js";
+import { verifyJWT } from "../Middlewares/auth.middleware.js";
 
-const router=Router();
+const router = Router();
 
 // router.post("/register",controller);
 
@@ -15,14 +16,19 @@ const router=Router();
 router.route("/register").post(upload.fields(
     [
         {
-            name:"avatar",
-            maxCount:1,
+            name: "avatar",
+            maxCount: 1,
         },
         {
-            name:"coverPic",
-            maxCount:1,
+            name: "coverPic",
+            maxCount: 1,
         }
     ]
-),RegisterUser);
+), RegisterUser);
+
+router.route("/login").post(LoginUser);
+
+router.route("/logout").post(verifyJWT, LogoutUser);
+router.route("/refreshToken").post(refreshAccessToken);
 
 export default router;
