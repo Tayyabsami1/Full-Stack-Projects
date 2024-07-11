@@ -4,6 +4,7 @@ import { User } from "../Models/user.model.js"
 import { UploadOnCloudinary } from "../Utils/Cloudinary.js";
 import { ApiResponse } from "../Utils/ApiResponse.js";
 import jwt from "jsonwebtoken"
+import fs from "fs"
 
 // Utility Function to generate access and refresh tokens with the help of methods we made in User Model
 const generateAccessAndRefreshToken = async (userID) => {
@@ -21,6 +22,10 @@ const generateAccessAndRefreshToken = async (userID) => {
    catch (err) {
       throw new ApiError(500, "Something went wrong while generating your tokens")
    }
+}
+
+const deleteLocalFiles = (filePath) => {
+   fs.unlinkSync(filePath);
 }
 
 // Async handler is our utlility function it helps us to use try catch block
@@ -212,7 +217,7 @@ const updateAvatarDetails = asyncHandler(async (req, res) => {
       throw new ApiError(500, "Error while uploading Avatar Image")
 
 
-   await User.findByIdAndUpdate(
+   const updatedUser = await User.findByIdAndUpdate(
       req.user._id,
       {
          $set: {
@@ -225,7 +230,9 @@ const updateAvatarDetails = asyncHandler(async (req, res) => {
       }
    ).select("-password");
 
-   return res.status(200).json(new ApiResponse(200, {}, "User Avatar Updated Successfully"));
+   deleteLocalFiles(avatarLocalPath);
+
+   return res.status(200).json(new ApiResponse(200, updatedUser, "User Avatar Updated Successfully"));
 })
 
 const updateCoverPicDetails = asyncHandler(async (req, res) => {
@@ -239,11 +246,11 @@ const updateCoverPicDetails = asyncHandler(async (req, res) => {
    if (!coverPicCloudinaryObject.url)
       throw new ApiError(500, "Error while uploading cover Image")
 
-   await User.findByIdAndUpdate(
+   const updatedUser = await User.findByIdAndUpdate(
       req.user._id,
       {
          $set: {
-            avatar: coverPicCloudinaryObject.url,
+            coverImage: coverPicCloudinaryObject.url,
          }
       }
       , {
@@ -251,10 +258,77 @@ const updateCoverPicDetails = asyncHandler(async (req, res) => {
 
       }
    ).select("-password");
-
-   return res.status(200).json(new ApiResponse(200, {}, "User Cover Picture Updated Successfully"));
+   deleteLocalFiles(coverPicLocalPath);
+   return res.status(200).json(new ApiResponse(200, updatedUser, "User Cover Picture Updated Successfully"));
 })
 
+const getUserChannelProfile=asyncHandler(async(req,res)=>{
+   const {username}=req.params;
 
+   if(username?.trim())
+   {
+      throw new ApiError(400, "Please enter a valid channel name");
+   }
 
-export { RegisterUser, LoginUser, LogoutUser, refreshAccessToken, changeCurrentPassword, getCurrentUser, updateAccountDetail, updateAvatarDetails,updateCoverPicDetails };
+   // aggregate is a method to do complex tasks , it takes in an array of pipeline stages
+   const channel=await User.aggregate([
+      {
+         $match:{
+            username:username.toLowerCase();
+         }
+      },{
+         $lookup:{
+            from:"subscriptions",
+            localField:"_id",
+            foreignField:"channel",
+            as:"subscribers",
+         }
+      },
+      {
+         $lookup:{
+            from:"subscriptions",
+            localField:"_id",
+            foreignField:"subscriber",
+            as:"subscribeTo",
+         }
+      },
+      {
+         $addFields:{
+            subscriberCount:{
+               $size:"$subscribers",
+            },
+            channelSubscribeToCount:{
+               $size:"$subscribeTo",
+            },
+            isSubscribed:{
+               $cond:{
+                  if:{$in: [req.user?._id,"$subscribers.subscriber"]},
+                  then:true,
+                  else:false,
+               }
+            }
+         }
+      },
+      {
+         $project:{
+            fullName:1,
+            username:1,
+            subscriberCount:1,
+            channelSubscribeToCount:1,
+            isSubscribed:1,
+            avatar:1,
+            email:1,
+            coverImage:1,
+         }
+      }
+   ])
+
+   // TODO : Console log the channel 
+
+   if(!channel?.length)
+      throw new ApiError(404,"Channel not found");
+
+   return res.status(200).json(new ApiResponse(200,channel[0],"Channel data fetched successfully"))
+})
+
+export { RegisterUser, LoginUser, LogoutUser, refreshAccessToken, changeCurrentPassword, getCurrentUser, updateAccountDetail, updateAvatarDetails, updateCoverPicDetails };
