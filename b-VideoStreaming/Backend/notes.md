@@ -31,4 +31,45 @@
 - We can save the upload file in our temp from the user and then we can upload it to our SDK eg CLoudinary
 - The files like Images , pdf ect are contained in the req.files. (You get the other data in req.body)
 
+## Mongoose Methods
 
+- Find one by Email or Username
+```bash
+ const UserExist = await User.findOne({
+      $or: [{ username }, { email }]
+   });  
+```
+- Find one by Usernmae
+```bash
+ const myUser= await User.findOne({username})  
+```
+- Create a new Entry in the User model 
+```bash
+ const MyNewUser = await User.create({
+      username: myusername.toLowerCase(),
+      password: mypass,
+      email:myemail,
+   })
+```
+- We have updated data manually and now saving it without validation
+```bash
+ await user.save({ validateBeforeSave: false });
+```
+- Find a user by Id
+```bash
+ const createdUser = await User.findById(MyNewUser._id)
+ ```
+
+ - Find a user by id and update it 
+ ``` bash
+ await  User.findByIdAndUpdate(
+      req.user._id,
+      {
+         $unset:{
+         refreshToken:1,
+         }
+      },{
+         new:true,
+      }
+   )
+```
