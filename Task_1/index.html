@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1 class="mainHeading">CRUD Operations</h1>
+
+    <!-- Table Start -->
+    <table class="mainTable">
+        <thead>
+            <tr>
+                <!--  We will sort the data on the basis of the ID -->
+                <th>
+                    ID
+                </th>
+                <th>
+                    Key
+                </th>
+                <th>
+                    Value
+                </th>
+                <th>
+                    icons
+                </th>
+            </tr>
+        </thead>
+        <!-- We will add items here using JS -->
+        <tbody id="TableBody">
+            
+        </tbody>
+    </table>
+
+    <!-- Table End  -->
+
+    <!-- Form Start -->
+    <h2 class="mainHeading">Enter Item</h2>
+    <form class="mainForm">
+        <input required id="idInput" type="number" placeholder="Enter ID">
+        <input required id="key" type="text" placeholder="Enter Key">
+        <input required id="valInput" type="text" placeholder="Enter Value">
+        <div style="display: flex; gap: 20px;">
+            <button id="addItem" class="main-btn" type="submit">Add Item</button>
+            <button type="button" id="sortItem" class="main-btn">Sort Items</button>
+        </div>
+    </form>
+
+    <!-- Form End  -->
+</body>
+
+<script src="./index.js"></script>
+
+</html>
