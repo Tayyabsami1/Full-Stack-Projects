@@ -4,7 +4,20 @@
 // We can also inject a middleware in the Route to upload pic or send files ect
 
 import { Router } from "express";
-import { getCurrentUser, LoginUser, LogoutUser, refreshAccessToken, RegisterUser } from "../Controllers/user.controller.js";
+import {
+    changeCurrentPassword,
+    getCurrentUser,
+    getUserChannelProfile,
+    getWatchHistory,
+    LoginUser,
+    LogoutUser,
+    refreshAccessToken,
+    RegisterUser,
+    updateAccountDetail,
+    updateAvatarDetails,
+    updateCoverPicDetails
+} from "../Controllers/user.controller.js";
+
 import { upload } from "../Middlewares/multer.middleware.js";
 import { verifyJWT } from "../Middlewares/auth.middleware.js";
 
@@ -31,6 +44,20 @@ router.route("/login").post(LoginUser);
 router.route("/logout").post(verifyJWT, LogoutUser);
 router.route("/refreshToken").post(refreshAccessToken);
 
-router.route("/user").get(verifyJWT,getCurrentUser);
+router.route("/changePassword").post(verifyJWT, changeCurrentPassword);
+
+
+router.route("/user").get(verifyJWT, getCurrentUser);
+
+// So that we only modify our required data not the whole
+router.route("/updateAccount").patch(verifyJWT, updateAccountDetail);
+
+router.route("/avatar").patch(verifyJWT, upload.single("avatar"), updateAvatarDetails);
+
+router.route("/coverPic").patch(verifyJWT, upload.single("coverPic"), updateCoverPicDetails);
+
+router.route("/channel/:username").get(verifyJWT, getUserChannelProfile);
+
+router.route("/watchHistory").get(verifyJWT, getWatchHistory);
 
 export default router;
