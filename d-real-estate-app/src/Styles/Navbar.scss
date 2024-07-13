@@ -1,0 +1,126 @@
+@import "../responsive.scss";
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+
+    a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: all 200ms ease-in-out;
+
+        &:hover {
+            scale: 1.05;
+        }
+    }
+
+    .left {
+        // As according to our UI Left part of the Navbar is bigger than right bar
+        flex: 3;
+        display: flex;
+        align-items: center;
+        gap: 50px;
+
+        img {
+            width: 28px;
+        }
+
+        span {
+            font-weight: bold;
+            font-size: 20px;
+
+            @include md {
+                display: none;
+            }
+
+            @include sm {
+                display: initial;
+            }
+        }
+
+        ul {
+            display: flex;
+            list-style: none;
+            gap: 50px;
+
+            @include sm {
+                display: none;
+            }
+        }
+    }
+
+    .right {
+        flex: 2;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        background-color: #fcf5f3;
+        height: 100%;
+        gap: 50px;
+
+        button {
+            font-weight: 500;
+            background-color: transparent;
+            border: none;
+            height: 35px;
+            padding: 0px 24px;
+            cursor: pointer;
+
+            @include sm {
+                display: none;
+            }
+        }
+
+        .SignUp {
+            background-color: #fece51;
+        }
+
+        .menuIcon {
+            z-index: 2;
+            display: none;
+            cursor: pointer;
+
+            img {
+                width: 36px;
+                height: 36px;
+            }
+
+            @include sm {
+                display: initial;
+            }
+        }
+
+        .menu {
+            position: absolute;
+            background-color: black;
+            color: white;
+            width: 50%;
+            top: 0;
+            right: -53%;
+            height: 100vh;
+            transition: all 500ms ease-in;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            align-items: center;
+            justify-content: center;
+            
+            a{
+                font-size: 24px;
+            }
+
+            &.active {
+                right: 0;
+            }
+        }
+
+        // Right Side Responsive Properties
+        @include md {
+            background-color: transparent;
+        }
+    }
+}
