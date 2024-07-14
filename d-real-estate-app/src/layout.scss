@@ -1,22 +1,30 @@
 @import "./responsive.scss";
 .layout{
-    background-color: rgba(0, 0, 0, 0.253);
     height: 100vh;
     max-width: 1366px;
     margin: auto;
     padding: 0px 20px;
+    overflow: hidden;
 
+    .content{
+        height: calc(100vh - 100px);
+    }
+
+
+
+    // Making the Layout responsive for all the designs 
     @include lg{
-        background-color: rgb(178, 178, 240);
+        // background-color: rgb(178, 178, 240);
         max-width: 1268px;
     }
     @include md{
-        background-color: rgb(216, 249, 249);
+        // background-color: rgb(216, 249, 249);
         max-width: 768px;
     }
 
     @include sm{
-        background-color: rgb(232, 203, 203);
+        // background-color: rgb(232, 203, 203);
         max-width:640px;
     }
+
 }
