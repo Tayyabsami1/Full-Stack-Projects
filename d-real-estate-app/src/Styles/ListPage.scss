@@ -1,1 +1,34 @@
-@import "../responsive.scss"
+@import "../responsive.scss";
+
+.ListPage {
+    display: flex;
+    height: 100%;
+
+// List container start
+    .listContainer {
+        flex: 3;
+        height: 100%;
+
+        .wrapper {
+            height: 100%;
+            padding-right: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            overflow: scroll;
+            padding-bottom: 50px;
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    }
+
+    // List container end
+
+    .mapContainer {
+        flex: 2;
+        height: 100%;
+        background-color: #fcf5f3;
+    }
+
+}
