@@ -5,5 +5,7 @@ import Card from "./Card";
 import Map from "./Map";
 import Pin from "./Pin";
 import Slider from "./Slider"
+import List from "./List";
+import Chat from "./Chat";
 
-export { Navbar, SearchBar,Filter,Card,Map,Pin,Slider};
+export { Navbar, SearchBar,Filter,Card,Map,Pin,Slider,List,Chat};

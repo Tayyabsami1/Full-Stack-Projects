@@ -63,6 +63,53 @@ nav {
         height: 100%;
         gap: 50px;
 
+        .user {
+            display: flex;
+            font-weight: bold;
+            align-items: center;
+            justify-content: space-between;
+            gap: 5px;
+            margin-right: 20px;
+
+            @include sm {
+                a,span {
+                    display: none;
+                }
+
+            }
+            
+            img {
+                border-radius: 50%;
+                height: 40px;
+                width: 40px;
+                object-fit: cover;
+            }
+
+            a {
+                margin-left: 20px;
+                padding: 12px 24px;
+                cursor: pointer;
+                background-color: #fece51;
+                position: relative;
+
+                .notification {
+                    position: absolute;
+                    top: -8px;
+                    right: -8px;
+                    background-color: red;
+                    color: white;
+                    border-radius: 50%;
+                    width: 26px;
+                    height: 26px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+
+            }
+        }
+
         button {
             font-weight: 500;
             background-color: transparent;
@@ -110,8 +157,8 @@ nav {
             gap: 50px;
             align-items: center;
             justify-content: center;
-            
-            a{
+
+            a {
                 font-size: 24px;
             }
 
