@@ -3,6 +3,8 @@ import { UserRouter,AuthRouter } from './Routes/index.js';
 
 const app = Express();
 
+// Middlewares
+app.use(Express.json());    
 
 // Routes Decleration 
 
