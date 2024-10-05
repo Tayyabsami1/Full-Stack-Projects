@@ -8,6 +8,6 @@
 ## B) A Video Streaming Application
 - A full stack video streaming website like youtube using MERN Stack
 
-## C) A Full Stack Anonymous Message Sender 
-- A Full Stack Anonymous Message Sender developed using NextJS.
+## D) A Real Estate App Frontend  
+- Frontend of a Real Estate App to Buy/ Rent Properties.
 
